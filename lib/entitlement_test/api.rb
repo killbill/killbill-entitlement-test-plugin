@@ -18,9 +18,6 @@ module EntitlementTest
 
       result.is_aborted = property_to_bool(properties, 'TEST_ABORT_ENTITLEMENT')
       result.adjusted_effective_date = property_to_float(properties, 'TEST_ADJUSTED_EFFECTIVE_DATE')
-      result.adjusted_plan_phase_specifier = nil
-      result.adjusted_plan_phase_price_override = nil
-      result.adjusted_plugin_properties = nil
       result
     end
 
