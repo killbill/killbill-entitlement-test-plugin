@@ -11,13 +11,17 @@ module EntitlementTest
 
 
     def prior_call(entitlement_context, properties)
-
       puts "EntitlementTest::EntitlementPlugin prior_call : #{entitlement_context_to_s(entitlement_context)}"
 
       result = ::Killbill::Plugin::Model::PriorEntitlementResult.new
 
       result.is_aborted = property_to_bool(properties, 'TEST_ABORT_ENTITLEMENT')
-      result.adjusted_effective_date = property_to_float(properties, 'TEST_ADJUSTED_EFFECTIVE_DATE')
+
+      # nil means no change
+      result.adjusted_billing_action_policy = nil
+      result.adjusted_base_entitlement_with_add_ons_specifiers = nil
+      result.adjusted_plugin_properties = nil
+
       result
     end
 
@@ -28,15 +32,13 @@ module EntitlementTest
 
     def on_failure_call(entitlement_context, properties)
       puts "EntitlementTest::EntitlementPlugin on_failure_call : #{entitlement_context_to_s(entitlement_context)}"
-      result = ::Killbill::Plugin::Model::OnFailureEntitlementResult.new
-      result.next_retry_date = property_to_date(properties, 'TEST_RETRY_FAILED_PAYMENT')
-      result
+      ::Killbill::Plugin::Model::OnFailureEntitlementResult.new
     end
 
     private
 
     def entitlement_context_to_s(rc)
-    "tenant = #{rc.tenant_id}, operation_type = #{rc.operation_type}, effective_date = #{rc.effective_date}"
+    "tenant = #{rc.tenant_id}, operation_type = #{rc.operation_type}"
     end
 
     def property_to_str(properties, key_name)

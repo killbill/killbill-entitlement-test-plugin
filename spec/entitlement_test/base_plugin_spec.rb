@@ -29,7 +29,6 @@ describe EntitlementTest::EntitlementPlugin do
     output.is_aborted.should be_true
     output.adjusted_plugin_properties.should be_nil
   end
-  
 
   private
 
