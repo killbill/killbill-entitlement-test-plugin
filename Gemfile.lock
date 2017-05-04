@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    killbill-entitlement-test (0.2.0)
+    killbill-entitlement-test (0.2.1)
       killbill (~> 8.0)
 
 GEM
