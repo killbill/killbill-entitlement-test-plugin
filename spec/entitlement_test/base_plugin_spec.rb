@@ -26,8 +26,9 @@ describe EntitlementTest::EntitlementPlugin do
     add_plugin_property('TEST_ABORT_ENTITLEMENT',"true", properties)
 
     output = @plugin.prior_call(@entitlement_context, properties)
-    output.is_aborted.should be_true
-    output.adjusted_plugin_properties.should be_nil
+
+    expect(output.is_aborted).to be_truthy
+    expect(output.adjusted_plugin_properties).to be_nil
   end
 
   private
